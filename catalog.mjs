@@ -170,7 +170,8 @@ export function createCatalog(files) {
   const formNames = vocabulary(files.formname, LAYOUT.formname, 'form');
   const toxNames = vocabulary(files.toxname, LAYOUT.toxname, 'tox');
   const types = groupByReg(files.prodtype, LAYOUT.prodtype, 'type', regs);
-  const alt = groupByReg(files.alt_prod_nm, LAYOUT.altName, 'name', regs, (line) => /^(active|alternate)$/i.test(field(line, LAYOUT.altName.status)));
+  // A few names carry a multi-byte "®" and shift the status one column left: read it as the line's last word.
+  const alt = groupByReg(files.alt_prod_nm, LAYOUT.altName, 'name', regs, (line) => /\b(active|alternate)\s*$/i.test(line));
   const ai = ingredients(files.formula, regs, chemicalNames(files.chemname));
   const registrants = companies(files.company);
 
