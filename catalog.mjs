@@ -60,7 +60,7 @@ export function sentenceCase(text) {
   return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-/** Active registrations (no cancellation date, not a manufacturing-use form): reg → product. */
+/** Active registrations (blank cancel/transfer code, no cancellation date, not a manufacturing-use form): reg → product. */
 export function activeProducts(lines) {
   const products = new Map();
   for (const line of lines) {
@@ -68,7 +68,9 @@ export function activeProducts(lines) {
     const reg = field(line, LAYOUT.product.reg);
     const canDate = field(line, LAYOUT.product.canDate);
     const form = field(line, LAYOUT.product.form);
-    if (!/^\d{11}$/.test(reg) || (canDate !== '' && canDate !== '00000000') || MANUFACTURING_FORMS.has(form)) continue;
+    // EPA: "Active products have a blank CT_CODE and CAN_DATE of 00000000."
+    const active = field(line, LAYOUT.product.ctCode) === '' && (canDate === '' || canDate === '00000000');
+    if (!/^\d{11}$/.test(reg) || !active || MANUFACTURING_FORMS.has(form)) continue;
     products.set(reg, {
       reg,
       name: field(line, LAYOUT.product.name),
