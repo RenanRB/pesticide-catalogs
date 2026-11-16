@@ -13,6 +13,7 @@ publicados leem de lá.
 | Argentina | `data/ar/` | SENASA, Registro Nacional de Terapéutica Vegetal (busca pública Vademecum) | nenhuma licença declarada; lista de drones CC BY 4.0 |
 | México | `data/mx/` | COFEPRIS, consulta de registros sanitarios de plaguicidas | informação pública, sem licença aberta declarada |
 | Grécia | `data/gr/` | Ministério do Desenvolvimento Rural e Alimentação, base dbSYSPEST | "todos os direitos reservados" (permissão pedida ao ministério) |
+| Alemanha | `de/` (ainda não publicado) | BVL, PSM-API (psm-api.bvl.bund.de) | nenhuma licença declarada (permissão pedida ao BVL) |
 
 Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/data/<país>/`.
 
@@ -27,7 +28,7 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
   - `e` vazio (classe ambiental, só no AGROFIT);
   - `u: 1` Restricted Use Pesticide (EUA); `d: 1` produto aprovado para aplicação por drone (França: arrêté de
     19/05/2026; Argentina: lista VANT do SENASA; México: o registro cita drone entre os usos).
-  - `t` na Argentina: classe toxicológica OMS (`Ia`, `Ib`, `II`, `III`, `IV`); no México: categoria (`1`–`5` ou `I`–`IV`);
+  - `t` na Alemanha: palavra-sinal CLP (`Gefahr` = `DANGER`, `Achtung` = `WARNING`). `t` na Argentina: classe toxicológica OMS (`Ia`, `Ib`, `II`, `III`, `IV`); no México: categoria (`1`–`5` ou `I`–`IV`);
     na Grécia: palavra-sinal CLP derivada das frases H (a base não traz a palavra).
 - `data/ar/distances.json`: distâncias mínimas de centros urbanos por província e classe toxicológica (dataset oficial
   "Regulaciones sobre aplicación de fitosanitarios", datos.gob.ar, CC BY 4.0).
@@ -52,6 +53,10 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
   vigentes. `node mx/build.mjs <pasta>` guarda cada página e retoma de onde parou.
 - **Grécia** (`gr/`): download da base dbSYSPEST pelo portal 1Click (requisições ZK simples, sem navegador) e
   `mdb-export`; produtos de uso profissional segundo as instruções do ministério que vêm no ZIP.
+- **Alemanha** (`de/`): PSM-API do BVL (dados mensais): produtos com autorização vigente, menos os só de uso
+  doméstico (`Nichtberuflich`), mais os em prazo de uso (`aufbrauchfrist`) e as licenças de comércio paralelo válidas
+  (número `<referência>/<PI>`). Selo de drone de `de/drone-kennr.json`, transcrito da lista do BVL (só vinhas em encosta
+  íngreme). **Fora do workflow semanal até o BVL responder**: `node de/build.mjs` roda localmente.
 
 ## Atualização
 
