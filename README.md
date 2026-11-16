@@ -1,39 +1,55 @@
-# EPA catalog
+# Pesticide catalogs
 
-Lista de produtos com registro **ativo** na EPA (FIFRA seção 3) e pelo menos um uso agrícola, uma entrada por número
-de registro (EPA Reg. No.), em JSON compacto. É usada pelo caderno de aplicação do [PulveCast](https://pulvecast.com)
-nos Estados Unidos, no mesmo formato do [agrofit-catalog](https://github.com/RenanRB/agrofit-catalog).
+Listas de produtos fitossanitários com autorização **vigente**, uma por país, em JSON compacto e no mesmo formato.
+São usadas pelo caderno de aplicação do [PulveCast](https://pulvecast.com) para sugerir o produto e guardar o número de
+registro. O Brasil continua no [agrofit-catalog](https://github.com/RenanRB/agrofit-catalog), porque os apps já
+publicados leem de lá.
 
-- `data/manifest.json`: data da última mudança (`updatedAt`), quantidade de produtos e SHA-256 de `products.json`.
-- `data/products.json`: `{version, source, products: [{r, b, f, a, h, c, t, e, u?}]}`, onde `r` é o EPA Reg. No.
-  (`100-1652`), `b` o nome do produto e os nomes alternativos ativos, `f` a formulação, `a` os ingredientes ativos com
-  a porcentagem, `h` o registrante, `c` os tipos (Herbicide, Insecticide…), `t` a palavra de advertência do rótulo
-  (DANGER, WARNING, CAUTION), `e` vazio (os EUA não têm classe ambiental) e `u: 1` nos **Restricted Use Pesticides**.
+| País | Pasta | Fonte oficial | Licença dos dados |
+| --- | --- | --- | --- |
+| Estados Unidos | `data/us/` | U.S. EPA, Pesticide Product Information System (PPIS) | obra do governo dos EUA |
+| França | `data/fr/` | ANSES, E-Phy (data.gouv.fr) | Licence Ouverte / Etalab |
+| Itália | `data/it/` | Ministero della Salute, banca dati prodotti fitosanitari | Italian Open Data License 2.0 |
 
-Publicado pelo GitHub Pages em `https://renanrb.github.io/epa-catalog/data/`.
+Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/data/<país>/`.
 
-## Como a lista é reduzida
+## Formato
 
-Fonte: arquivos de download do **PPIS** (Pesticide Product Information System), texto de largura fixa; as posições
-dos campos seguem o dicionário de dados da EPA (`ppisdata.pdf`). Entram os registros de `PRODUCT.TXT` sem data de
-cancelamento, exceto "Technical Chemical" e "Formulation Intermediate" (uso industrial), com pelo menos um local de uso
-agrícola em `PRODSITE.TXT` (grupos de site 01–28 culturas, 30 florestas, 40 solo de culturas, 66 áreas agrícolas não
-cultivadas). Ficam de fora ornamentais, gramados, animais, edificações e desinfetantes. O nome do ingrediente ativo é o
-ISO quando existe (`CHEMNAME.TXT`). Marcas de distribuidores (`DIST.TXT`) ainda não entram.
+- `manifest.json`: data da última mudança (`updatedAt`), quantidade de produtos e SHA-256 de `products.json`.
+- `products.json`: `{version, source, products: [{r, b, f, a, h, c, t, e, u?, d?}]}`:
+  - `r` número de registro / autorização (EPA Reg. No., AMM, numero di registrazione);
+  - `b` nomes comerciais; `f` formulação; `a` substâncias ativas com teor; `h` titular; `c` função (herbicida…);
+  - `t` advertência do rótulo: EUA `DANGER`/`WARNING`/`CAUTION`, França a palavra-sinal CLP (`DANGER`, `WARNING`
+    para "Attention"), Itália vazio (o dado aberto ainda traz só as classes antigas Xn, N…);
+  - `e` vazio (classe ambiental, só no AGROFIT);
+  - `u: 1` Restricted Use Pesticide (EUA); `d: 1` produto da lista oficial aprovada para aplicação por drone (França).
+
+## Como cada lista é reduzida
+
+- **EUA** (`us/`): registros FIFRA seção 3 ativos (código de cancelamento/transferência em branco e sem data de
+  cancelamento), sem formas técnicas, com pelo menos um local de uso agrícola. Detalhes em `us/catalog.mjs`.
+- **França** (`fr/`): produtos `PPP`, adjuvantes, mistos e misturas de uso **profissional**, `AUTORISE` ou `RETIRE` ainda
+  no prazo de uso (`date fin utilisation` de algum uso ≥ hoje), mais os permis de commerce parallèle autorizados, com o
+  rótulo do produto de referência. A URL do ZIP muda toda semana e é resolvida pela API do data.gouv.fr. O selo de
+  drone vem de `fr/drone-amm.json`, transcrito do *arrêté du 19 mai 2026* (lista de produtos aprovados para aeronave
+  não tripulada); atualize à mão quando sair novo arrêté. A ANSES avisa que o E-Phy não é oponível: só o registro
+  eletrônico das AMM faz fé.
+- **Itália** (`it/`): tudo que não está `Revocato`, `Scaduto` ou `Sospeso`, sem prazo de autorização vencido e sem os
+  produtos para uso não profissional (`PFnPO`/`PFnPE` = SI). A URL do CSV leva a data e é lida da página do dataset.
 
 ## Atualização
 
-Toda quarta-feira o workflow `weekly EPA catalog` baixa os arquivos (a EPA atualiza na terça), reduz a lista e faz
-commit só quando ela mudou. Se a EPA estiver fora do ar, se o layout mudar ou se vierem menos de 3.000 produtos, o
-build falha e a lista publicada continua a anterior.
+Toda quarta-feira o workflow `weekly catalogs` roda cada país separadamente: baixa a fonte, reduz a lista e faz commit
+só quando ela mudou. Se a fonte estiver fora do ar, se o layout mudar ou se vierem poucos produtos, aquele país falha e
+a lista publicada continua a anterior; os outros seguem.
 
-Localmente: `node build.mjs` (baixa da EPA) ou `node build.mjs <pasta com os .txt>`; testes: `node --test catalog.test.mjs`.
+Localmente: `node us/build.mjs`, `node fr/build.mjs`, `node it/build.mjs` (cada um aceita um arquivo/pasta já baixado);
+testes: `node --test`.
 
-## Fonte e licença dos dados
+## Aviso
 
-Dados: **U.S. Environmental Protection Agency, Pesticide Product Information System (PPIS)**,
-<https://www.epa.gov/pesticides/PPISdata>, obra do governo dos EUA. Esta lista é uma derivação para facilitar a
-digitação: não é recomendação de uso, não substitui o rótulo (the label is the law) e não indica se um produto está
-registrado no seu estado, se pode ser aplicado por drone nem se é permitido em uma cultura.
+Estas listas são derivações para facilitar a digitação. Não são recomendação de uso, não substituem o rótulo nem a
+decisão de autorização, e não indicam se um produto pode ser aplicado numa cultura, num estado/região ou por drone fora
+das listas oficiais citadas.
 
-Código: MIT.
+Código: MIT. Dados: das fontes acima, com a atribuição exigida pelas licenças.

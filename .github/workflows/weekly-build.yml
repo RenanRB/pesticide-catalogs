@@ -1,46 +1,63 @@
-name: weekly EPA catalog
+name: weekly catalogs
 
 on:
   schedule:
-    - cron: '23 9 * * 3' # Wednesdays 09:23 UTC: EPA uploads the PPIS files on Monday night and updates them Tuesday 00:01 EDT
+    # Wednesdays 09:23 UTC: EPA updates PPIS on Tuesday, E-Phy on Tuesday night, the Italian dataset weekly.
+    - cron: '23 9 * * 3'
   workflow_dispatch:
+    inputs:
+      country:
+        description: 'One country (us, fr, it) or empty for all'
+        required: false
 
 concurrency:
-  group: epa-data-push
+  group: catalogs-data-push
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      # One country failing (its source down or changed) never blocks the others.
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        country: [us, fr, it]
 
     steps:
       - name: Checkout repository
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         uses: actions/checkout@v4
 
       - name: Set up Node
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Test the parser
-        run: node --test catalog.test.mjs
+      - name: Test the parsers
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
+        run: node --test
 
-      # Writes data/ only when the product list changed; fails (and keeps the published
-      # files) when EPA is unreachable, the layout changed or too few products came out.
+      # Writes data/<country>/ only when its product list changed; fails (and keeps the
+      # published files) when the source is unreachable, its layout changed or too few
+      # products came out.
       - name: Build the catalog
-        run: node build.mjs
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
+        run: node ${{ matrix.country }}/build.mjs
 
       - name: Commit updated data
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         run: |
-          if git diff --quiet -- data; then
+          if git diff --quiet -- data/${{ matrix.country }}; then
             echo "Data unchanged."
             exit 0
           fi
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add data
-          git commit -m "Update EPA catalog"
+          git add data/${{ matrix.country }}
+          git commit -m "Update ${{ matrix.country }} catalog"
           for attempt in 1 2 3; do
             if git pull --rebase --autostash && git push; then
               exit 0

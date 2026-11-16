@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { deflateRawSync } from 'node:zlib';
 import { createCatalog, formatPercent, formatRegNr, sentenceCase } from './catalog.mjs';
-import { unzip } from './zip.mjs';
+import { unzip } from '../lib/zip.mjs';
 
 const pad = (text, width) => String(text).padEnd(width).slice(0, width);
 
