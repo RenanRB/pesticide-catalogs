@@ -49,7 +49,7 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
 - **Argentina** (`ar/`): busca pública do Vademecum do SENASA (API JSON não documentada, ~37 requisições), só
   inscrições ATIVAS; funções por consulta avançada; selo VANT de `ar/drone-vant.json` (PDF oficial, à mão).
 - **México** (`mx/`): consulta HTML da COFEPRIS, ~590 páginas de 20 (horas por execução); só plaguicidas agrícolas
-  vigentes. `node mx/build.mjs <pasta>` guarda cada página e retoma de onde parou.
+  vigentes. Atualiza **uma vez por mês** (dia 1º), não toda semana, pela demora. `node mx/build.mjs <pasta>` guarda cada página e retoma de onde parou.
 - **Grécia** (`gr/`): download da base dbSYSPEST pelo portal 1Click (requisições ZK simples, sem navegador) e
   `mdb-export`; produtos de uso profissional segundo as instruções do ministério que vêm no ZIP.
 
