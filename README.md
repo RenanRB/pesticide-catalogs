@@ -31,8 +31,9 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
 - **França** (`fr/`): produtos `PPP`, adjuvantes, mistos e misturas de uso **profissional**, `AUTORISE` ou `RETIRE` ainda
   no prazo de uso (`date fin utilisation` de algum uso ≥ hoje), mais os permis de commerce parallèle autorizados, com o
   rótulo do produto de referência. A URL do ZIP muda toda semana e é resolvida pela API do data.gouv.fr. O selo de
-  drone vem de `fr/drone-amm.json`, transcrito do *arrêté du 19 mai 2026* (lista de produtos aprovados para aeronave
-  não tripulada); atualize à mão quando sair novo arrêté. A ANSES avisa que o E-Phy não é oponível: só o registro
+  drone vem de `fr/drone-amm.json`, transcrito do anexo do *arrêté du 19 mai 2026* (lista de produtos aprovados para
+  aeronave não tripulada): 132 AMM e os 57 permis de commerce parallèle que o anexo cita; só esses números recebem
+  o selo. Atualize à mão quando sair novo arrêté. A ANSES avisa que o E-Phy não é oponível: só o registro
   eletrônico das AMM faz fé.
 - **Itália** (`it/`): tudo que não está `Revocato`, `Scaduto` ou `Sospeso`, sem prazo de autorização vencido e sem os
   produtos para uso não profissional (`PFnPO`/`PFnPE` = SI). A URL do CSV leva a data e é lida da página do dataset.

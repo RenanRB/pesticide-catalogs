@@ -61,7 +61,7 @@ function signalWords(hazards) {
  *
  * @param {{products: object[], usages: object[], hazards: object[], permits: object[]}} files
  * @param {string} today ISO date: withdrawn products still in their use-up period stay in
- * @param {Set<string>} drone AMM numbers of the drone list
+ * @param {Set<string>} drone AMM and parallel-trade permit numbers the drone list names
  */
 export function createCatalog(files, today, drone = new Set()) {
   const until = useUntil(files.usages);
@@ -90,7 +90,10 @@ export function createCatalog(files, today, drone = new Set()) {
     const nr = pcp['N° Permis'];
     const ref = byAmm.get(pcp['N° AMM de référence français']);
     if (!/^\d{7}$/.test(nr) || pcp['Etat d’autorisation'] !== 'AUTORISE' || !ref || byAmm.has(nr)) continue;
-    byAmm.set(nr, { ...ref, r: nr, b: unique([pcp['Nom du produit']]), h: pcp['Détenteur PCP'] });
+    const { d: _referenceOnList, ...label } = ref;
+    // The drone list names the permits it covers: only those carry the flag, never by inheritance.
+    const entry = { ...label, r: nr, b: unique([pcp['Nom du produit']]), h: pcp['Détenteur PCP'] };
+    byAmm.set(nr, drone.has(nr) ? { ...entry, d: 1 } : entry);
   }
   return [...byAmm.values()].filter((e) => e.b.length).sort((a, b) => a.r.localeCompare(b.r));
 }

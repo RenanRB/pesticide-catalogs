@@ -28,6 +28,7 @@ async function texts(folder) {
 
 const raw = await texts(process.argv[2]);
 const files = Object.fromEntries(Object.entries(raw).map(([k, text]) => [k, records(text)]));
-const drone = new Set(JSON.parse(await readFile(new URL('./drone-amm.json', import.meta.url), 'utf8')).amm);
+const list = JSON.parse(await readFile(new URL('./drone-amm.json', import.meta.url), 'utf8'));
+const drone = new Set([...list.amm, ...list.pcp]);
 const today = new Date().toISOString().slice(0, 10);
 await publish('fr', SOURCE, createCatalog(files, today, drone), MIN_PRODUCTS);

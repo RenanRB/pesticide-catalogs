@@ -57,8 +57,11 @@ test('authorised professional products, withdrawn ones only during their use-up 
     d: 1,
   });
   assert.equal(list[1].t, '');
-  // A parallel-trade permit carries its reference product's label, drone approval included.
-  assert.deepEqual({ ...list[2] }, { ...list[0], r: '2150001', b: ['IMPORTED'], h: 'IMPORTER' });
+  // A parallel-trade permit carries its reference product's label; the drone flag only when the list names it.
+  const { d: _flag, ...label } = list[0];
+  assert.deepEqual({ ...list[2] }, { ...label, r: '2150001', b: ['IMPORTED'], h: 'IMPORTER' });
+  const named = createCatalog(files, '2026-11-15', new Set(['2000001', '2150001']));
+  assert.equal(named[2].d, 1);
 });
 
 test('the newest weekly UTF-8 CSV zip is picked', () => {
