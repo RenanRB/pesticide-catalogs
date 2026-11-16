@@ -4,12 +4,10 @@ on:
   schedule:
     # Wednesdays 09:23 UTC: EPA updates PPIS on Tuesday, E-Phy on Tuesday night, the others weekly or less.
     - cron: '23 9 * * 3'
-    # Mexico only, on the 1st of each month: its run pages through ~590 HTML pages (45 min to 2 h).
-    - cron: '41 9 1 * *'
   workflow_dispatch:
     inputs:
       country:
-        description: 'One country (us, fr, it, ar, mx, gr) or empty for all but Mexico'
+        description: 'One country (us, fr, it, ar, mx, gr) or empty for all'
         required: false
 
 permissions:
@@ -32,49 +30,34 @@ jobs:
         country: [us, fr, it, ar, gr, mx]
 
     steps:
-      # Mexico runs on the monthly schedule or when asked by name; every other country on the weekly
-      # schedule or a run for all countries.
-      - name: Decide whether this country runs
-        id: want
-        env:
-          SCHEDULE: ${{ github.event.schedule }}
-          COUNTRY: ${{ matrix.country }}
-          ASKED: ${{ inputs.country }}
-        run: |
-          if [ -n "$ASKED" ]; then run=$([ "$ASKED" = "$COUNTRY" ] && echo true || echo false)
-          elif [ "$COUNTRY" = mx ]; then run=$([ "$SCHEDULE" = '41 9 1 * *' ] && echo true || echo false)
-          else run=$([ "$SCHEDULE" = '41 9 1 * *' ] && echo false || echo true)
-          fi
-          echo "run=$run" >> "$GITHUB_OUTPUT"
-
       - name: Checkout repository
-        if: steps.want.outputs.run == 'true'
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         uses: actions/checkout@v4
 
       - name: Set up Node
-        if: steps.want.outputs.run == 'true'
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       # Greece ships an MS Access database: mdb-export reads it.
       - name: Install mdbtools
-        if: ${{ matrix.country == 'gr' && steps.want.outputs.run == 'true' }}
+        if: ${{ matrix.country == 'gr' && (!inputs.country || inputs.country == matrix.country) }}
         run: sudo apt-get update && sudo apt-get install -y mdbtools
 
       - name: Test the parsers
-        if: steps.want.outputs.run == 'true'
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         run: node --test
 
       # Writes data/<country>/ only when its product list changed; fails (and keeps the
       # published files) when the source is unreachable, its layout changed or too few
       # products came out.
       - name: Build the catalog
-        if: steps.want.outputs.run == 'true'
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         run: node ${{ matrix.country }}/build.mjs
 
       - name: Commit updated data
-        if: steps.want.outputs.run == 'true'
+        if: ${{ !inputs.country || inputs.country == matrix.country }}
         run: |
           # Stage first: a country's first build creates untracked files, which git diff alone ignores.
           git add data/${{ matrix.country }}
