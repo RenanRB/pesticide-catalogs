@@ -1,0 +1,22 @@
+name: probe pl (temporary)
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Tor with a Polish exit
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tor >/dev/null
+          printf 'SocksPort 9050\nExitNodes {pl}\nStrictNodes 1\n' | sudo tee /etc/tor/torrc
+          sudo systemctl restart tor || sudo service tor restart
+          for i in $(seq 1 60); do curl -s -m 20 --socks5-hostname 127.0.0.1:9050 https://api.ipify.org && break; sleep 3; done; echo
+          curl -s -m 30 --socks5-hostname 127.0.0.1:9050 https://ipinfo.io/country || true
+      - name: Fetch the register through it
+        run: |
+          mkdir out
+          curl -sSL -m 120 --socks5-hostname 127.0.0.1:9050 -A 'Mozilla/5.0 (X11; Linux x86_64)' -o out/page.html -w 'page %{http_code} %{size_download}\n' https://www.gov.pl/web/rolnictwo/rejestr-rodkow-ochrony-roslin || true
+          grep -o -E '/attachment/[0-9a-f-]{36}[^<]{0,200}' out/page.html | head -10 || true
+          a=$(grep -o -E '/attachment/[0-9a-f-]{36}' out/page.html | head -1)
+          [ -n "$a" ] && curl -sSL -m 120 --socks5-hostname 127.0.0.1:9050 -A 'Mozilla/5.0' -D - -o out/first.bin "https://www.gov.pl$a" | grep -i -E 'HTTP/|content-disposition|content-length' || true
+          ls -la out
