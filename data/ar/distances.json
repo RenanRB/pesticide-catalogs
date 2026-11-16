@@ -1,0 +1,641 @@
+{
+ "version": 1,
+ "source": {
+  "name": "Secretaría de Agricultura, Ganadería y Pesca, Regulaciones sobre aplicación de fitosanitarios (datos.gob.ar)",
+  "url": "https://datos.gob.ar/dataset/regulaciones-sobre-aplicacion-de-agroquimicos",
+  "file": "https://datos.magyp.gob.ar/dataset/4b644e9e-254e-4fb4-ab25-348134b8296a/resource/84737e69-f494-488a-81d0-4c7748698865/download/regulacion_provincial_fitosanitarios.csv",
+  "license": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+  "modified": "2019-01-23"
+ },
+ "note": "Minimum distance in metres from towns (centros urbanos) set by each province's base law, per toxicological class. rule: distance | none (no distance set) | banned | no_law. m[class]: metres, 0 = no restriction, null = not stated. Municipal ordinances and newer drone rules can be stricter.",
+ "classes": [
+  "Ia",
+  "Ib",
+  "II",
+  "III",
+  "IV"
+ ],
+ "provinces": [
+  {
+   "id": "06",
+   "province": "Buenos Aires",
+   "law": "Ley 10.699",
+   "decree": "Decreto 499/91",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 2000,
+     "Ib": 2000,
+     "II": 2000,
+     "III": 2000,
+     "IV": 2000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "10",
+   "province": "Catamarca",
+   "law": "Ley 4.395",
+   "decree": "Decreto 3175/87",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1000,
+     "Ib": 1000,
+     "II": 1000,
+     "III": 1000,
+     "IV": 1000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "14",
+   "province": "Cordoba",
+   "law": "Ley 9.164",
+   "decree": "Decreto 132/05",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1500,
+     "Ib": 1500,
+     "II": 1500,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "18",
+   "province": "Corrientes",
+   "law": "Ley 5.300",
+   "decree": "Decreto 593/94",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1000,
+     "Ib": 1000,
+     "II": 1000,
+     "III": 1000,
+     "IV": 1000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "22",
+   "province": "Chaco",
+   "law": "Ley 2026-R",
+   "decree": "Decreto 1567/13",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1500,
+     "Ib": 1500,
+     "II": 1500,
+     "III": 1500,
+     "IV": 1500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": 500,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "26",
+   "province": "Chubut",
+   "law": "Ley 4.073",
+   "decree": "Decreto 2139/03",
+   "aerial": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "30",
+   "province": "Entre Rios",
+   "law": "Ley 6.599",
+   "decree": "Decreto 279/03",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": 3000,
+     "III": 3000,
+     "IV": 3000
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": 3000,
+     "III": 3000,
+     "IV": 3000
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "34",
+   "province": "Formosa",
+   "law": "Ley 1.163",
+   "decree": "Decreto 1228/04",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": 3000,
+     "III": 3000,
+     "IV": 3000
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": 500,
+     "III": 100,
+     "IV": 100
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "38",
+   "province": "Jujuy",
+   "law": "Ley 4.975",
+   "decree": "Decreto 3214/13",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 2000,
+     "Ib": 2000,
+     "II": 2000,
+     "III": 2000,
+     "IV": 2000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "42",
+   "province": "La Pampa",
+   "law": "Ley 1.173",
+   "decree": "Decreto 618/90",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1000,
+     "Ib": 1000,
+     "II": 1000,
+     "III": 1000,
+     "IV": 1000
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": 500,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "46",
+   "province": "La Rioja",
+   "law": "Ley 9.170",
+   "decree": "Sin decreto de reglamentacion",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1500,
+     "Ib": 1500,
+     "II": 1500,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": 500,
+     "III": 0,
+     "IV": 0
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "50",
+   "province": "Mendoza",
+   "law": "Ley 5.665",
+   "decree": "Decreto 1469/93",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1000,
+     "Ib": 1000,
+     "II": 1000,
+     "III": 1000,
+     "IV": 1000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "54",
+   "province": "Misiones",
+   "law": "Ley 2.980",
+   "decree": "Decreto 2867/93",
+   "aerial": {
+    "rule": "banned",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "58",
+   "province": "Neuquen",
+   "law": "Ley 2.774",
+   "decree": "Decreto 1112/13",
+   "aerial": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "62",
+   "province": "Rio Negro",
+   "law": "Ley 2.175",
+   "decree": "Decreto 729/94",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 2000,
+     "Ib": 2000,
+     "II": 2000,
+     "III": 2000,
+     "IV": 2000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "66",
+   "province": "Salta",
+   "law": "Ley 7.812",
+   "decree": "Decreto 3924/15",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": 3000,
+     "III": null,
+     "IV": 500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "70",
+   "province": "San Juan",
+   "law": "Ley 6.744",
+   "decree": "Decreto 2343/97",
+   "aerial": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "74",
+   "province": "San Luis",
+   "law": "Ley 5.559",
+   "decree": "Decreto 1675/09",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1500,
+     "Ib": 1500,
+     "II": 1500,
+     "III": 1500,
+     "IV": 1500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 1500,
+     "Ib": 1500,
+     "II": 1500,
+     "III": 1500,
+     "IV": 1500
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "78",
+   "province": "Santa Cruz",
+   "law": "Ley 2.529",
+   "decree": "Decreto 095/08",
+   "aerial": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "82",
+   "province": "Santa Fe",
+   "law": "Ley 11.273",
+   "decree": "Decreto 552/97",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": null,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": null,
+     "III": 0,
+     "IV": 0
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "86",
+   "province": "Santiago del Estero",
+   "law": "Ley 6.312",
+   "decree": "Decreto Serie A 0038/01",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 3000,
+     "Ib": 3000,
+     "II": null,
+     "III": 500,
+     "IV": 500
+    }
+   },
+   "ground": {
+    "rule": "distance",
+    "m": {
+     "Ia": 500,
+     "Ib": 500,
+     "II": null,
+     "III": 0,
+     "IV": 0
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "90",
+   "province": "Tucuman",
+   "law": "Ley 6.291",
+   "decree": "Decreto 299/96",
+   "aerial": {
+    "rule": "distance",
+    "m": {
+     "Ia": 2000,
+     "Ib": 2000,
+     "II": 2000,
+     "III": 2000,
+     "IV": 2000
+    }
+   },
+   "ground": {
+    "rule": "none",
+    "m": {
+     "Ia": 0,
+     "Ib": 0,
+     "II": 0,
+     "III": 0,
+     "IV": 0
+    }
+   },
+   "prescription": true
+  },
+  {
+   "id": "94",
+   "province": "Tierra del Fuego",
+   "law": "Sin Ley",
+   "decree": "Sin Ley",
+   "aerial": {
+    "rule": "no_law",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "ground": {
+    "rule": "no_law",
+    "m": {
+     "Ia": null,
+     "Ib": null,
+     "II": null,
+     "III": null,
+     "IV": null
+    }
+   },
+   "prescription": null
+  }
+ ]
+}

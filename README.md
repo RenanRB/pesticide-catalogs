@@ -10,6 +10,9 @@ publicados leem de lá.
 | Estados Unidos | `data/us/` | U.S. EPA, Pesticide Product Information System (PPIS) | obra do governo dos EUA |
 | França | `data/fr/` | ANSES, E-Phy (data.gouv.fr) | Licence Ouverte / Etalab |
 | Itália | `data/it/` | Ministero della Salute, banca dati prodotti fitosanitari | Italian Open Data License 2.0 |
+| Argentina | `data/ar/` | SENASA, Registro Nacional de Terapéutica Vegetal (busca pública Vademecum) | nenhuma licença declarada; lista de drones CC BY 4.0 |
+| México | `data/mx/` | COFEPRIS, consulta de registros sanitarios de plaguicidas | informação pública, sem licença aberta declarada |
+| Grécia | `data/gr/` | Ministério do Desenvolvimento Rural e Alimentação, base dbSYSPEST | "todos os direitos reservados" (permissão pedida ao ministério) |
 
 Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/data/<país>/`.
 
@@ -22,7 +25,12 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
   - `t` advertência do rótulo: EUA `DANGER`/`WARNING`/`CAUTION`, França a palavra-sinal CLP (`DANGER`, `WARNING`
     para "Attention"), Itália vazio (o dado aberto ainda traz só as classes antigas Xn, N…);
   - `e` vazio (classe ambiental, só no AGROFIT);
-  - `u: 1` Restricted Use Pesticide (EUA); `d: 1` produto da lista oficial aprovada para aplicação por drone (França).
+  - `u: 1` Restricted Use Pesticide (EUA); `d: 1` produto aprovado para aplicação por drone (França: arrêté de
+    19/05/2026; Argentina: lista VANT do SENASA; México: o registro cita drone entre os usos).
+  - `t` na Argentina: classe toxicológica OMS (`Ia`, `Ib`, `II`, `III`, `IV`); no México: categoria (`1`–`5` ou `I`–`IV`);
+    na Grécia: palavra-sinal CLP derivada das frases H (a base não traz a palavra).
+- `data/ar/distances.json`: distâncias mínimas de centros urbanos por província e classe toxicológica (dataset oficial
+  "Regulaciones sobre aplicación de fitosanitarios", datos.gob.ar, CC BY 4.0).
 
 ## Como cada lista é reduzida
 
@@ -37,6 +45,13 @@ Publicado pelo GitHub Pages em `https://renanrb.github.io/pesticide-catalogs/dat
   eletrônico das AMM faz fé.
 - **Itália** (`it/`): tudo que não está `Revocato`, `Scaduto` ou `Sospeso`, sem prazo de autorização vencido e sem os
   produtos para uso não profissional (`PFnPO`/`PFnPE` = SI). A URL do CSV leva a data e é lida da página do dataset.
+
+- **Argentina** (`ar/`): busca pública do Vademecum do SENASA (API JSON não documentada, ~37 requisições), só
+  inscrições ATIVAS; funções por consulta avançada; selo VANT de `ar/drone-vant.json` (PDF oficial, à mão).
+- **México** (`mx/`): consulta HTML da COFEPRIS, ~590 páginas de 20 (horas por execução); só plaguicidas agrícolas
+  vigentes. `node mx/build.mjs <pasta>` guarda cada página e retoma de onde parou.
+- **Grécia** (`gr/`): download da base dbSYSPEST pelo portal 1Click (requisições ZK simples, sem navegador) e
+  `mdb-export`; produtos de uso profissional segundo as instruções do ministério que vêm no ZIP.
 
 ## Atualização
 

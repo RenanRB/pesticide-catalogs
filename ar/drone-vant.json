@@ -1,0 +1,39 @@
+{
+ "source": "SENASA, Listado de productos registrados para VANT (septiembre 2026)",
+ "url": "https://www.argentina.gob.ar/sites/default/files/2018/08/listado_de_productos_registrados_para_vant_septiembre_2026.pdf",
+ "license": "Creative Commons Atribución 4.0 Internacional (argentina.gob.ar)",
+ "checked": "2026-11-15",
+ "registrations": [
+  "38954",
+  "38970",
+  "41129",
+  "35954",
+  "41497",
+  "38104",
+  "39075",
+  "39077",
+  "40684",
+  "39292",
+  "40365",
+  "40658",
+  "38871",
+  "34251"
+ ],
+ "products": [
+  { "r": "38954", "producto": "MIRAVIS DUO", "aptitud": "Funguicida", "empresa": "SYNGENTA" },
+  { "r": "38970", "producto": "PIRATE", "aptitud": "Insecticida", "empresa": "BASF" },
+  { "r": "41129", "producto": "MELYRA", "aptitud": "Funguicida", "empresa": "BASF" },
+  { "r": "35954", "producto": "HEAT", "aptitud": "Herbicida", "empresa": "BASF" },
+  { "r": "41497", "producto": "VORAXOR", "aptitud": "Herbicida", "empresa": "BASF" },
+  { "r": "38104", "producto": "FIDEPLUS GLIFOSATO", "aptitud": "Herbicida", "empresa": "AFA" },
+  { "r": "39075", "producto": "GLIFOSATO LEMBU", "aptitud": "Herbicida", "empresa": "AFA" },
+  { "r": "39077", "producto": "GLIFOSATO ANGIRU", "aptitud": "Herbicida", "empresa": "AFA" },
+  { "r": "40684", "producto": "FIDEMAX HALOXIFOP", "aptitud": "Herbicida", "empresa": "AFA" },
+  { "r": "39292", "producto": "FIDEMAX CLETODIM", "aptitud": "Herbicida", "empresa": "AFA" },
+  { "r": "40365", "producto": "ECO POTENT PLUS", "aptitud": "Coadyuvante", "empresa": "AKO S.R.L." },
+  { "r": "40658", "producto": "YAMATO TOP", "aptitud": "Herbicida", "empresa": "SUMMIT-AGRO" },
+  { "r": "38871", "producto": "HARVISTA 1.3", "aptitud": "Fitorregulador", "empresa": "AGROFRESH" },
+  { "r": "34251", "producto": "FLIPPER", "aptitud": "Insecticida", "empresa": "CORTEVA" }
+ ],
+ "note": "Transcribed by hand from the one-page PDF (columns N. de Registro, Activo, Aptitud, Producto, Empresa). Only these registration numbers get d: 1. Update when SENASA publishes a new list."
+}

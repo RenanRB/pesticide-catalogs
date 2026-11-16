@@ -2,12 +2,12 @@ name: weekly catalogs
 
 on:
   schedule:
-    # Wednesdays 09:23 UTC: EPA updates PPIS on Tuesday, E-Phy on Tuesday night, the Italian dataset weekly.
+    # Wednesdays 09:23 UTC: EPA updates PPIS on Tuesday, E-Phy on Tuesday night, the others weekly or less.
     - cron: '23 9 * * 3'
   workflow_dispatch:
     inputs:
       country:
-        description: 'One country (us, fr, it) or empty for all'
+        description: 'One country (us, fr, it, ar, mx, gr) or empty for all'
         required: false
 
 permissions:
@@ -20,13 +20,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Mexico pages through COFEPRIS's HTML search, ~590 pages of 3–20 s each.
+    timeout-minutes: ${{ matrix.country == 'mx' && 330 || 30 }}
     strategy:
       # One country failing (its source down or changed) never blocks the others.
       fail-fast: false
       max-parallel: 1
       matrix:
-        country: [us, fr, it]
+        country: [us, fr, it, ar, gr, mx]
 
     steps:
       - name: Checkout repository
@@ -38,6 +39,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      # Greece ships an MS Access database: mdb-export reads it.
+      - name: Install mdbtools
+        if: ${{ matrix.country == 'gr' && (!inputs.country || inputs.country == matrix.country) }}
+        run: sudo apt-get update && sudo apt-get install -y mdbtools
 
       - name: Test the parsers
         if: ${{ !inputs.country || inputs.country == matrix.country }}
